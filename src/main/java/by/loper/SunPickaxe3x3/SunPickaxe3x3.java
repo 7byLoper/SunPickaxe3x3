@@ -27,9 +27,6 @@ public final class SunPickaxe3x3 extends JavaPlugin implements Listener {
     Logger log = Logger.getLogger("Minecraft");
     private static List<String> materials;
 
-    public SunPickaxe3x3() {
-    }
-
     public void onEnable() {
         this.saveDefaultConfig();
         instance = this;
