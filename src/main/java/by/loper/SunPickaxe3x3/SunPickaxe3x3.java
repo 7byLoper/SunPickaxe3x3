@@ -16,7 +16,7 @@ public final class SunPickaxe3x3 extends JavaPlugin{
         this.log.warning("");
         this.log.warning(ChatColor.GREEN + "  |SunPickaxe3x3 Enabled   ");
         this.log.warning("");
-        this.log.warning(ChatColor.GREEN + "  |Version : 1.0    ");
+        this.log.warning(ChatColor.GREEN + "  |Version : 1.1    ");
         this.log.warning("");
         Bukkit.getPluginManager().registerEvents(new listener(), this);
         this.getCommand("SunPickaxe").setExecutor(new Cmd());
@@ -25,7 +25,7 @@ public final class SunPickaxe3x3 extends JavaPlugin{
         this.log.warning("");
         this.log.warning(ChatColor.GREEN + "  |SunPickaxe3x3 Disabled   ");
         this.log.warning("");
-        this.log.warning(ChatColor.GREEN + "  |Version : 1.0    ");
+        this.log.warning(ChatColor.GREEN + "  |Version : 1.1    ");
         this.log.warning("");
     }
     public static SunPickaxe3x3 getInstance() {
