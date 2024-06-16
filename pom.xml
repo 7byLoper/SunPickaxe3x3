@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>by.loper</groupId>
-    <artifactId>Tester</artifactId>
+    <artifactId>SunPickaxes</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>Tester</name>
+    <name>SunPickaxes</name>
 
     <properties>
         <java.version>1.8</java.version>
