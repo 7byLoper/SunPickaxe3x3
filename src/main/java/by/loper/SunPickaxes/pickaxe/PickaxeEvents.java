@@ -62,11 +62,9 @@ public class PickaxeEvents implements Listener {
 
                                 if (region.isMember(localPlayer)) {
                                     block1.breakNaturally();
-                                }
-                                else if (region.isOwner(localPlayer)) {
+                                } else if (region.isOwner(localPlayer)) {
                                     block1.breakNaturally();
-                                }
-                                else if (set.testState(null, Flags.BLOCK_BREAK)) {
+                                } else if (set.testState(null, Flags.BLOCK_BREAK)) {
                                     block1.breakNaturally();
                                 }
 
@@ -75,28 +73,26 @@ public class PickaxeEvents implements Listener {
                     }
                 }
             }
-        }
-        else if (meta.getPersistentDataContainer().get(new NamespacedKey(SunPickaxe3x3.getInstance(), "sunPickaxe"), PersistentDataType.STRING).equals("magnet")) {
+        } else if (meta.getPersistentDataContainer().get(new NamespacedKey(SunPickaxe3x3.getInstance(), "sunPickaxe"), PersistentDataType.STRING).equals("magnet")) {
 
             b.setType(Material.AIR);
             e.setCancelled(true);
 
             Collection<ItemStack> items = b.getDrops();
-            for(ItemStack item : items) {
+            for (ItemStack item : items) {
                 p.getInventory().addItem(item);
             }
 
-        }
-        else if (meta.getPersistentDataContainer().get(new NamespacedKey(SunPickaxe3x3.getInstance(), "sunPickaxe"), PersistentDataType.STRING).equals("automelting")) {
-            for (Material key  : Manager.getAutoMeltingBlockList().keySet()){
+        } else if (meta.getPersistentDataContainer().get(new NamespacedKey(SunPickaxe3x3.getInstance(), "sunPickaxe"), PersistentDataType.STRING).equals("automelting")) {
+            for (Material key : Manager.getAutoMeltingBlockList().keySet()) {
 
                 ItemStack item = new ItemStack(Manager.getAutoMeltingBlockList().get(key));
 
-                if(b.getType() == key){
+                if (b.getType() == key) {
 
                     Location location = b.getLocation();
                     e.setDropItems(false);
-                    location.getWorld().dropItemNaturally(location,item);
+                    location.getWorld().dropItemNaturally(location, item);
 
                 }
             }
