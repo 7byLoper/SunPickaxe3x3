@@ -59,6 +59,10 @@ public final class SuperPickaxe extends AbstractPickaxe {
         Location location = block.getLocation();
         ApplicableRegionSet set = query.getApplicableRegions(BukkitAdapter.adapt(location));
 
+        if (set.size() <= 0) {
+            return true;
+        }
+
         for (ProtectedRegion region : set) {
             if (!(region.isMember(localPlayer) || region.isOwner(localPlayer))) {
                 return false;
