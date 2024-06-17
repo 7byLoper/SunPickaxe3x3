@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import revxrsal.commands.annotation.Command;
 import revxrsal.commands.annotation.Subcommand;
 
+@SuppressWarnings("unused")
 @Command({"sunpickaxe", "pickaxe"})
 public final class PickaxeCommand {
     @Subcommand("give magnet")
