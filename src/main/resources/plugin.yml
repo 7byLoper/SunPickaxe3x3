@@ -4,5 +4,3 @@ main: by.loper.sunpickaxes.SunPickaxes
 api-version: '1.16'
 depend: [ WorldGuard ]
 authors: [ Loper, alcoloid ]
-commands:
-  SunPickaxe:

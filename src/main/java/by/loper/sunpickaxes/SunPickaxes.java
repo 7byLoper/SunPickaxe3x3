@@ -5,6 +5,7 @@ import by.loper.sunpickaxes.listener.BlockBreakListener;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import revxrsal.commands.bukkit.BukkitCommandHandler;
 
 import java.util.logging.Logger;
 
@@ -22,7 +23,9 @@ public final class SunPickaxes extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
 
-        this.getCommand("SunPickaxe").setExecutor(new PickaxeCommand());
+        BukkitCommandHandler handler = BukkitCommandHandler.create(this);
+        handler.register(new PickaxeCommand());
+        handler.registerBrigadier();
 
         this.showInfo();
     }
@@ -38,4 +41,3 @@ public final class SunPickaxes extends JavaPlugin {
         logger.info("");
     }
 }
-
