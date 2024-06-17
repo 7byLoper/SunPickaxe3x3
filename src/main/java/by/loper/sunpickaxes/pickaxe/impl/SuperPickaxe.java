@@ -11,45 +11,30 @@ import com.sk89q.worldguard.protection.flags.Flags;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
-
-import java.util.List;
 
 public final class SuperPickaxe extends AbstractPickaxe {
     @Override
     public void onBreak(BlockBreakEvent event) {
         Location blockLocation = event.getBlock().getLocation();
-        World world = event.getPlayer().getWorld();
+
         Player player = event.getPlayer();
 
-        List<Block> lastTwoTargetBlocks = player.getLastTwoTargetBlocks(null, 100);
-
-        BlockFace blockFace = lastTwoTargetBlocks.get(1).getFace(lastTwoTargetBlocks.get(0));
-
-        if (blockFace == null) {
-            return;
-        }
-
-        WorldBlockHelper.selectNxNx1(world, blockLocation, blockFace, this.getLevel()).stream()
+        WorldBlockHelper.selectNxNx1(player, blockLocation, this.getLevel()).stream()
                 .filter(this::isWhitelisted)
                 .filter(block -> isBlockInAllowedRegion(block, player))
-                .forEach(Block::breakNaturally);
-    }
-
-    @Override
-    public String getIdentifier() {
-        return "3x3";
-    }
-
-    @Override
-    protected String getDisplayName() {
-        return super.getDisplayName().replaceAll("%level%", String.valueOf(this.getLevel()));
+                .forEach(block -> {
+                    if (player.getGameMode() == GameMode.CREATIVE) {
+                        block.setType(Material.AIR);
+                    } else {
+                        block.breakNaturally();
+                    }
+                });
     }
 
     private boolean isBlockInAllowedRegion(Block block, Player player) {
@@ -80,5 +65,15 @@ public final class SuperPickaxe extends AbstractPickaxe {
 
     private int getLevel() {
         return this.getConfig().getInt("Level", 1);
+    }
+
+    @Override
+    public String getIdentifier() {
+        return "3x3";
+    }
+
+    @Override
+    public boolean workInCreative() {
+        return true;
     }
 }

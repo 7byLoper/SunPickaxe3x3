@@ -2,6 +2,7 @@ package by.loper.sunpickaxes.listener;
 
 import by.loper.sunpickaxes.pickaxe.AbstractPickaxe;
 import by.loper.sunpickaxes.pickaxe.Pickaxes;
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -14,7 +15,9 @@ public final class BlockBreakListener implements Listener {
 
         AbstractPickaxe pickaxe = Pickaxes.toAbstractPickaxe(itemStack);
 
-        if (pickaxe != null) {
+        boolean playerInCreative = event.getPlayer().getGameMode() == GameMode.CREATIVE;
+
+        if (pickaxe != null && (pickaxe.workInCreative() || !playerInCreative)) {
             pickaxe.onBreak(event);
         }
     }

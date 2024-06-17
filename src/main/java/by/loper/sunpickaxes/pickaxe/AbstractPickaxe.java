@@ -63,6 +63,10 @@ public abstract class AbstractPickaxe {
         player.getInventory().addItem(this.itemStack);
     }
 
+    public boolean workInCreative() {
+        return false;
+    }
+
     protected ConfigurationSection getConfig() {
         String name = StringUtils.capitalize(this.getIdentifier().toLowerCase());
 

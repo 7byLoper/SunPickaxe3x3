@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,5 +51,21 @@ public final class WorldBlockHelper {
         }
 
         return new ArrayList<>();
+    }
+
+    public static List<Block> selectNxNx1(Player player, Location pos, int n) {
+        List<Block> lastTwoTargetBlocks = player.getLastTwoTargetBlocks(null, 100);
+
+        if (lastTwoTargetBlocks.size() <= 1) {
+            return new ArrayList<>();
+        }
+
+        BlockFace blockFace = lastTwoTargetBlocks.get(1).getFace(lastTwoTargetBlocks.get(0));
+
+        if (blockFace == null) {
+            return new ArrayList<>();
+        }
+
+        return selectNxNx1(player.getWorld(), pos, blockFace, n);
     }
 }
