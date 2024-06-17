@@ -1,6 +1,5 @@
-
 #======================================#
-#  Плагин версии 1.0 сделан для сервера#
+#  Плагин версии ${project.version} сделан для сервера#
 #       SunLand Created by Loper       #
 #      Server Ip: mc.SunLand.fun       #
 #            Связь со мной:            #
@@ -8,23 +7,32 @@
 #            VK:@Loper_Ru              #
 #======================================#
 Pickaxe:
-  DisplayName: "§x§F§B§6§1§0§8§lБ§x§F§B§6§B§0§7§lУ§x§F§C§7§5§0§6§lР §x§F§D§8§9§0§5§lК§x§F§D§9§3§0§4§lР§x§F§D§9§C§0§3§lО§x§F§E§A§6§0§2§lН§x§F§E§B§0§0§2§lО§x§F§F§B§A§0§1§lС§x§F§F§C§4§0§0§lА &7(LVL II)"
-  level: 1 #кол-во блоков для радиуса
-  Lore:
-    - "§6Бур I"
-  WhiteListBlock:
-    - STONE
-    - NETHERRACK
-    - DIAMOND_ORE
-    - COAL_ORE
-    - IRON_ORE
-    - EMERALD_ORE
-    - REDSTONE_ORE
-    - LAPIS_ORE
-    - NETHER_QUARTZ_ORE
-    - NETHER_GOLD_ORE
-    - ANDESITE
-    - GRANITE
-    - DIORITE
-    - COBBLESTONE
-    - GOLD_ORE
+  3x3:
+    DisplayName: "&6Кирка 3x3"
+    Level: 1 # кол-во блоков для радиуса
+    Lore:
+      - "§6Бур"
+    WhiteListBlock:
+      - STONE
+      - NETHERRACK
+      - DIAMOND_ORE
+      - COAL_ORE
+      - IRON_ORE
+      - EMERALD_ORE
+      - REDSTONE_ORE
+      - LAPIS_ORE
+      - NETHER_QUARTZ_ORE
+      - NETHER_GOLD_ORE
+      - ANDESITE
+      - GRANITE
+      - DIORITE
+      - COBBLESTONE
+      - GOLD_ORE
+  Melt:
+    DisplayName: "&dКирка с автоматической плавкой руды"
+    Lore:
+      - "§6Бур I"
+  Magnet:
+    DisplayName: "&eМагнитная кирка"
+    Lore:
+      - "§6Бур I"
