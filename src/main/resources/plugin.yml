@@ -1,7 +1,6 @@
 name: SunPickaxe3x3
 version: '${project.version}'
-main: by.loper.SunPickaxe3x3.SunPickaxe3x3
+main: by.loper.sunpickaxes.SunPickaxes
 api-version: '1.16'
-depend: [WorldGuard]
-commands:
-  SunPickaxe:
+depend: [ WorldGuard ]
+authors: [ Loper, alcoloid ]
