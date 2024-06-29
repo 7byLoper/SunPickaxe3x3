@@ -31,17 +31,19 @@ public class PickaxeEvents implements Listener {
 
         Block b = e.getBlock();
         Player p = e.getPlayer();
-        ItemMeta meta = p.getInventory().getItemInMainHand().getItemMeta();
-
+        ItemStack pItem = p.getInventory().getItemInMainHand();
+        ItemMeta meta = pItem.getItemMeta();
+        if(meta == null) return;
         if (!meta.getPersistentDataContainer().has(new NamespacedKey(SunPickaxe3x3.getInstance(), "sunPickaxe"), PersistentDataType.STRING))
             return;
+        RegionContainer container = SunPickaxe3x3.getWorldGuard().getPlatform().getRegionContainer();
+        RegionQuery query = container.createQuery();
 
         if (meta.getPersistentDataContainer().get(new NamespacedKey(SunPickaxe3x3.getInstance(), "sunPickaxe"), PersistentDataType.STRING).equals("3x3")) {
 
             int level = Manager.getLevel();
             List<Block> blocks = Manager.select(new Location(b.getWorld(), (b.getX() + level), (b.getY() + level), (b.getZ() + level)), new Location(b.getWorld(), (b.getX() - level), (b.getY() - level), (b.getZ() - level)));
-            RegionContainer container = SunPickaxe3x3.getWorldGuard().getPlatform().getRegionContainer();
-            RegionQuery query = container.createQuery();
+
 
             for (Block block1 : blocks) {
                 for (String mat : Manager.getMaterials()) {
@@ -62,11 +64,9 @@ public class PickaxeEvents implements Listener {
 
                                 if (region.isMember(localPlayer)) {
                                     block1.breakNaturally();
-                                }
-                                else if (region.isOwner(localPlayer)) {
+                                } else if (region.isOwner(localPlayer)) {
                                     block1.breakNaturally();
-                                }
-                                else if (set.testState(null, Flags.BLOCK_BREAK)) {
+                                } else if (set.testState(null, Flags.BLOCK_BREAK)) {
                                     block1.breakNaturally();
                                 }
 
@@ -76,14 +76,38 @@ public class PickaxeEvents implements Listener {
                 }
             }
         }
+
         else if (meta.getPersistentDataContainer().get(new NamespacedKey(SunPickaxe3x3.getInstance(), "sunPickaxe"), PersistentDataType.STRING).equals("magnet")) {
 
-            b.setType(Material.AIR);
-            e.setCancelled(true);
+            ApplicableRegionSet set = query.getApplicableRegions(BukkitAdapter.adapt(b.getLocation()));
 
             Collection<ItemStack> items = b.getDrops();
             for(ItemStack item : items) {
-                p.getInventory().addItem(item);
+                if (set.size() == 0) {
+                    b.setType(Material.AIR);
+                    e.setCancelled(true);
+                    p.getInventory().addItem(item);
+
+                } else {
+                    for (ProtectedRegion region : set) {
+
+                        LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(p);
+
+                        if (region.isMember(localPlayer)) {
+                            b.setType(Material.AIR);
+                            e.setCancelled(true);
+                            p.getInventory().addItem(item);
+                        } else if (region.isOwner(localPlayer)) {
+                            b.setType(Material.AIR);
+                            e.setCancelled(true);
+                            p.getInventory().addItem(item);
+                        } else if (set.testState(null, Flags.BLOCK_BREAK)) {
+                            b.setType(Material.AIR);
+                            e.setCancelled(true);
+                            p.getInventory().addItem(item);
+                        }
+                    }
+                }
             }
 
         }
@@ -93,11 +117,33 @@ public class PickaxeEvents implements Listener {
                 ItemStack item = new ItemStack(Manager.getAutoMeltingBlockList().get(key));
 
                 if(b.getType() == key){
-
+                    ApplicableRegionSet set = query.getApplicableRegions(BukkitAdapter.adapt(b.getLocation()));
                     Location location = b.getLocation();
-                    e.setDropItems(false);
-                    location.getWorld().dropItemNaturally(location,item);
 
+                    if (set.size() == 0) {
+
+                        e.setDropItems(false);
+
+                        location.getWorld().dropItemNaturally(location,item);
+
+                    } else {
+
+                        for (ProtectedRegion region : set) {
+
+                            LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(p);
+
+                            if (region.isMember(localPlayer)) {
+                                e.setDropItems(false);
+                                location.getWorld().dropItemNaturally(location,item);
+                            } else if (region.isOwner(localPlayer)) {
+                                e.setDropItems(false);
+                                location.getWorld().dropItemNaturally(location,item);
+                            } else if (set.testState(null, Flags.BLOCK_BREAK)) {
+                                e.setDropItems(false);
+                                location.getWorld().dropItemNaturally(location,item);
+                            }
+                        }
+                    }
                 }
             }
         }
